@@ -1,119 +1,113 @@
-#include <Adafruit_GFX.h>
-#include <Arduino_ST7789.h>
+#include <TFT_eSPI.h>
 #include <SPI.h>
 #include <SD.h>
-#include <TJpg_Decoder.h> // Bodmer
+#include <TJpg_Decoder.h>
 
-// ================= TFT (software SPI) =================
-#define TFT_MISO -1
-#define TFT_MOSI 13
-#define TFT_SCLK 14
-#define TFT_CS   27
-#define TFT_DC   32
-#define TFT_RST  15
+// ===== TFT =====
+TFT_eSPI tft = TFT_eSPI();
 
-Arduino_ST7789 tft(
-    TFT_DC,
-    TFT_RST,
-    TFT_MOSI,
-    TFT_SCLK,
-    TFT_CS
-);
-
-// ================= SD (hardware SPI - VSPI) ===========
+// ===== SD (VSPI) =====
+#define SD_CS   5
 #define SD_MOSI 23
 #define SD_MISO 19
 #define SD_SCLK 18
-#define SD_CS   5
 
-// ================= BUTTON =============================
-#define BTN_PIN 22
-
-// ================= JPG state ==========================
-uint8_t currentImage = 1;   // test1.jpg ... test8.jpg
-bool lastButtonState = HIGH;
-unsigned long lastDebounceTime = 0;
-const unsigned long debounceDelay = 50;
-
-// ================= Callback rysujący JPG na TFT =======
-bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t *bitmap)
+// ===== JPG callback =====
+bool tft_output(int16_t x, int16_t y,
+                uint16_t w, uint16_t h,
+                uint16_t *bitmap)
 {
     if (y >= tft.height() || x >= tft.width()) return false;
 
-    tft.setAddrWindow(x, y, x + w - 1, y + h - 1);
-
-    for (uint32_t i = 0; i < (uint32_t)w * h; i++) {
-        tft.pushColor(bitmap[i]);
-    }
+    tft.startWrite();
+    tft.setAddrWindow(x, y, w, h);
+    tft.pushColors(bitmap, w * h, true);
+    tft.endWrite();
 
     return true;
 }
 
-// ================= Funkcja rysująca JPG ================
-void drawCurrentImage()
-{
-    char filename[20];
-    sprintf(filename, "/test%d.jpg", currentImage);
-
-    Serial.print("Displaying: ");
-    Serial.println(filename);
-
-    tft.fillScreen(BLACK);
-
-    if (!TJpgDec.drawSdJpg(0, 0, filename)) {
-        Serial.println("JPG draw FAILED");
-    }
-}
-
-// ================= Setup ===============================
 void setup()
 {
-    Serial.begin(9600);
-    delay(200);
+    Serial.begin(115200);
+    delay(300);
 
-    // --- Button ---
-    pinMode(BTN_PIN, INPUT_PULLUP);
-
-    // --- TFT ---
-    tft.init(240, 320);
+    // TFT
+    tft.init();
     tft.setRotation(2);
-    tft.fillScreen(BLACK);
+    tft.invertDisplay(false);
+    tft.fillScreen(TFT_BLACK);
     Serial.println("TFT OK");
 
-    // --- SD ---
+    // SD
     SPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
     if (!SD.begin(SD_CS)) {
-        Serial.println("SD init FAILED");
+        Serial.println("SD FAIL");
         while (1);
     }
     Serial.println("SD OK");
 
-    // --- JPG decoder ---
+    // JPG
     TJpgDec.setCallback(tft_output);
-    TJpgDec.setJpgScale(1);      // pełny rozmiar
-    TJpgDec.setSwapBytes(false);
+    TJpgDec.setSwapBytes(false);   // RGB565
+    TJpgDec.setJpgScale(1);
 
-    drawCurrentImage(); // pokaż test1.jpg na start
+    
+    // rysuje pusty prostokat
+    tft.drawRect(200, 200, 50, 50, TFT_BROWN);
+    // rysuje okrag
+    tft.drawCircle(225, 225, 25, TFT_PINK);
+    // rysuje piksel
+    tft.drawPixel(1,1,TFT_WHITE);
+    tft.drawPixel(2,2,TFT_WHITE);
+    tft.drawPixel(3,3,TFT_WHITE);
+    tft.drawPixel(4,4,TFT_WHITE);
+    tft.drawPixel(5,5,TFT_WHITE);
+    tft.drawPixel(5,5,TFT_WHITE);
+    tft.drawPixel(6,6,TFT_WHITE);
+    // rysuje linie - wolna funkcja programowo
+    tft.drawLine(8, 8, 20, 20, TFT_PURPLE);
+    // rysuje linie pozioma - szybka funkcja, szybsze dzialanie
+    tft.drawFastHLine(0, 40, 30, TFT_WHITE);
+    // rysuje linie pionowa - szybka funkcja, szybsze dzialanie
+    tft.drawFastVLine(50, 30, 120, TFT_GREEN);
+    // rysuje wypelniony prostokat
+    tft.fillRect(150, 400, 50, 50, TFT_BROWN);
+    
+    //poczatek pisania
+    tft.setCursor(10,300);
+    //rozmiar czcionki
+    tft.setTextSize(3);
+    //kolor tekstu, kolor tla
+    tft.setTextColor(TFT_WHITE, TFT_BLUE);
+    //tresc
+    tft.print("Hello");
+    tft.setTextColor(TFT_GREEN, TFT_BLUE);
+    tft.print("test");
+
+    tft.drawRect(10, 300, 5, 5, TFT_BROWN);
+
+    //tworzenie wlasnego koloru
+    uint16_t TFT_LIME = tft.color565(127,255,0);
+
+    tft.fillRect(70, 350, 40, 40, TFT_LIME);
+
+    /*
+    TJpgDec.drawSdJpg(0, 0, "/test0.jpg");
+    TJpgDec.drawSdJpg(0, 0, "/test1.jpg");
+    TJpgDec.drawSdJpg(0, 0, "/test2.jpg");
+    TJpgDec.drawSdJpg(0, 0, "/test3.jpg");
+    TJpgDec.drawSdJpg(0, 0, "/test4.jpg");
+    TJpgDec.drawSdJpg(0, 0, "/test5.jpg");
+    */
+    TJpgDec.drawSdJpg(0, 0, "/test0.jpg");
 }
 
-// ================= Loop ================================
-void loop()
-{
-    static bool lastState = HIGH;
-    bool currentState = digitalRead(BTN_PIN);
+void loop() {
+/*
+  tft.fillScreen(TFT_RED);
+  tft.fillScreen(TFT_MAGENTA);
+  TJpgDec.drawSdJpg(0, 0, "/test0.jpg");
+*/
 
-    // wykrycie zbocza HIGH -> LOW (przycisk wciśnięty)
-    if (lastState == HIGH && currentState == LOW) {
-        Serial.println("BUTTON PRESSED");
-
-        currentImage++;
-        if (currentImage > 8) currentImage = 1;
-
-        drawCurrentImage();
-
-        delay(200); // twardy debounce (wystarczy)
-    }
-
-    lastState = currentState;
 }
-
