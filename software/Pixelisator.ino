@@ -1,3 +1,9 @@
+//BASIC INFORMATION
+// Author:  Paweł Bartkiewicz 
+// email:   15g.pawel.bart@gmail.com
+// github:  PaweuQ
+// licence: MIT 
+
 #include <TFT_eSPI.h>
 #include <SPI.h>
 #include <SD.h>
