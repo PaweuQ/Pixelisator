@@ -1,8 +1,9 @@
-//BASIC INFORMATION
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
-// github:  PaweuQ
+// github:  Hexyr
 // licence: MIT
+
+// first working scene with simple logic, changing tft screen color
 
 #include <TFT_eSPI.h>
 #include <SPI.h>
