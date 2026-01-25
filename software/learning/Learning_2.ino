@@ -1,6 +1,6 @@
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
-// github:  Hexyr
+// github:  Hexyr7
 // licence: MIT
 
 // Change scene when button pressed. 
