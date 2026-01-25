@@ -1,6 +1,6 @@
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
-// github:  Hexyr0
+// github:  Hexyr7
 // licence: MIT
 
 // first working scene with simple logic, changing tft screen color
