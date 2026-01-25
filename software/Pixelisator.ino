@@ -1,7 +1,7 @@
 //BASIC INFORMATION
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
-// github:  PaweuQ
+// github:  Hexyr0
 // licence: MIT 
 
 #include <TFT_eSPI.h>
