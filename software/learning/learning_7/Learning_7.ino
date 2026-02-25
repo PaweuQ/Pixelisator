@@ -4,7 +4,8 @@
 // licence: MIT
 
 // changing the scene switiching system. It was based on class enum SceneID in previous version. Now it operates on pointers.
-// I resigned from creating scenes with setScene(new BlueScene()) when it must be activated. Now I make objects in main so they are alive for eternity and use pointers to show precisely their addresses. That's better memory management
+// I resigned from creating scenes with setScene(new BlueScene()) when it must be activated. 
+// Now I make objects in main so they are alive for eternity and use pointers to show precisely their addresses. That's better memory management
 
 #include "Buttons.h"
 #include "BlinkScene.h"
