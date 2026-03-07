@@ -3,14 +3,17 @@
 // github:  Hexyr7
 // licence: MIT
 
-// 1 BlueScene update() optimalisation, eliminating delays
-//   solution - reading from Serial to char and trimming empty signs 
+// 1 BlueScene update() optimisation
+//   removed blocking Serial.readString()
+//   replaced with non-blocking char reading
 
-// 2 Giving tft object to classes thought context structure 
-//   so we dont force CPU to look for the object everywhere
-//   also we dont have to include library everywhere and extern object tft
+// 2 Passing hardware objects through Context
+//   Context stores shared system objects (tft, buttons)
+//   scenes receive them through reference
+//   this removes global variables and keeps dependencies explicit
 
-// 3 Implementing events for buttons 
+// 3 Implementing events for buttons instead of polling
+//   
 
 #include "Buttons.h"
 #include "BlinkScene.h"
@@ -57,6 +60,7 @@ void setup() {
 }
 
 void loop() {
-  buttons.update();
+  buttons.update(context);
   manager.update();
+  context.clearEvents();
 }

@@ -1,3 +1,4 @@
+#include "Event.h"
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
 // github:  Hexyr7
@@ -29,8 +30,14 @@ void BlinkScene::update() {
 
     context.tft.fillScreen (state ? TFT_WHITE : TFT_BLACK); //if state then white else black
   }
-  if (context.buttons.isClicked()) {
-    Serial.println("Change");
-    nextScene = blueScene;
+
+  for(int i=0; i<context.eventCount; i++) {
+
+    Event e = context.eventQueue[i];
+
+    if(e.type == EventType::ButtonPressed && e.button == ButtonID::A) {
+      Serial.println("Button OK pressed. I'm out of Blink");
+      nextScene = blueScene;
+    }
   }
 }

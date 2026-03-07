@@ -6,10 +6,26 @@
 #pragma once
 #include "Buttons.h"
 #include "TFT_eSPI.h"
+#include "Event.h"
+
+#define EVENT_QUEUE_SIZE 10
 
 struct Context {
+
   TFT_eSPI& tft;
   Buttons& buttons;
 
   Context(Buttons& btn, TFT_eSPI& display) : buttons(btn), tft(display) {}
+
+  Event eventQueue[EVENT_QUEUE_SIZE];
+  int eventCount = 0;
+
+  void pushEvent(Event e) {
+    if (eventCount < EVENT_QUEUE_SIZE) {
+      eventQueue[eventCount++] = e;
+    }
+  }
+  void clearEvents() {
+    eventCount = 0;
+  }
 };

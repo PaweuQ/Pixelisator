@@ -4,9 +4,9 @@
 // licence: MIT
 
 #include "GreenScene.h"
-#include <TFT_eSPI.h>
+//#include <TFT_eSPI.h>
 
-extern TFT_eSPI tft;
+//extern TFT_eSPI tft;
 
 void GreenScene::setBlueScene(Scene* scene) {
   blueScene = scene;
@@ -14,12 +14,12 @@ void GreenScene::setBlueScene(Scene* scene) {
 void GreenScene::onExit() {}
 
 void GreenScene::onEnter() {
-  tft.fillScreen(TFT_GREEN);
+  context.tft.fillScreen(TFT_GREEN);
 }
 
 void GreenScene::update() {
-  if(context.buttons.isClicked()) {
+  /*if(context.buttons.isClicked()) {
     nextScene = blueScene;
-  }
+  }*/
 }
 

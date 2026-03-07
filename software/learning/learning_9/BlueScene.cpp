@@ -1,12 +1,13 @@
+#include "Event.h"
 // Author:  Paweł Bartkiewicz 
 // email:   15g.pawel.bart@gmail.com
 // github:  Hexyr7
 // licence: MIT
 
 #include "BlueScene.h"
-#include <TFT_eSPI.h>
+//#include <TFT_eSPI.h>
 
-extern TFT_eSPI tft;
+//extern TFT_eSPI tft;
 //extern Buttons buttons;
 
 void BlueScene::setRedScene(Scene* scene) {
@@ -23,7 +24,7 @@ void BlueScene::setBlinkScene(Scene* scene) {
 }
 void BlueScene::onEnter() {
   Serial.println("BlueScene");
-  tft.fillScreen(TFT_BLUE);
+  context.tft.fillScreen(TFT_BLUE);
 }
 
 void BlueScene::onExit() {}
@@ -42,8 +43,13 @@ void BlueScene::update() {
     }
   }
   
-  if (context.buttons.isClicked()) {
-    nextScene = blinkScene;
+  for(int i=0; i<context.eventCount; i++) {
+
+    Event e = context.eventQueue[i];
+
+    if (e.type == EventType::ButtonPressed && e.button == ButtonID::A) {
+      nextScene = blinkScene;
+    }
   }
   //if (Serial.available() > 0) {
 

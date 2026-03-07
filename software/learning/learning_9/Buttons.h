@@ -5,21 +5,19 @@
 
 #pragma once
 #include <Arduino.h>
+#include "Event.h"
+//#include "Context.h"
+struct Context; // <-- forward declaration
 
 class Buttons {
 public:
-  Buttons(int okPin);
+  Buttons(int buttonPin);
 
   void begin();
-  void update();
-
-  bool isPressed() const;
-  bool isClicked() const;
+  void update(Context& context);
 
 private:
-  int _okPin;
-
-  bool _currentState = false;
-  bool _lastState    = false; 
-  bool _clicked      = false; 
+  int pin;
+  bool previousState = HIGH;
+  bool currentState = false;
 };

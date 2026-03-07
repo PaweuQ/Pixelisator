@@ -3,27 +3,28 @@
 // github:  Hexyr7
 // licence: MIT
 
+//#include "esp32-hal-gpio.h"
 #include "Buttons.h"
+#include "Context.h"
 
-Buttons::Buttons(int okPin)
-  : _okPin(okPin)
+Buttons::Buttons(int buttonPin) 
+  : pin(buttonPin)
 {}
 
 void Buttons::begin() {
-  pinMode(_okPin, INPUT_PULLUP);
+  pinMode(pin, INPUT_PULLUP);
 }
 
-void Buttons::update() {
-  _lastState = _currentState;
-  _currentState = (digitalRead(_okPin) == LOW);
+void Buttons::update(Context& context) {
 
-  _clicked = (_currentState && !_lastState);
-}
+  currentState = digitalRead(pin);
 
-bool Buttons::isPressed() const {
-  return _currentState;
-}
+  if (previousState == HIGH && currentState == LOW) {
 
-bool Buttons::isClicked() const {
-  return _clicked;
+    Event e;
+    e.type = EventType::ButtonPressed;
+    e.button = ButtonID::A;
+    context.pushEvent(e);
+  }
+  previousState = currentState;
 }
