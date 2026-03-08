@@ -20,4 +20,6 @@ private:
   int pin;
   bool previousState = HIGH;
   bool currentState = false;
+  unsigned long pressStart = 0;
+  bool holdSent = false;
 };

@@ -19,12 +19,41 @@ void Buttons::update(Context& context) {
 
   currentState = digitalRead(pin);
 
+  unsigned long now = millis();
+
   if (previousState == HIGH && currentState == LOW) {
 
     Event e;
     e.type = EventType::ButtonPressed;
     e.button = ButtonID::A;
     context.pushEvent(e);
+
+    pressStart = now;
+    holdSent = false;
   }
+
+  if (previousState == LOW && currentState == HIGH) {
+
+    Event e;
+    e.type = EventType::ButtonReleased;
+    e.button = ButtonID::A;
+
+    context.pushEvent(e);
+  }
+
+  if (currentState == LOW && !holdSent) {
+
+    if (now - pressStart > 500) {
+
+      Event e;
+      e.type = EventType::ButtonHeld;
+      e.button = ButtonID::A;
+
+      context.pushEvent(e);
+
+      holdSent = true;
+    }
+  }
+
   previousState = currentState;
 }
