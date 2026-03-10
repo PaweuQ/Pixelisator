@@ -7,8 +7,8 @@
 #include "Buttons.h"
 #include "Context.h"
 
-Buttons::Buttons(int buttonPin) 
-  : pin(buttonPin)
+Buttons::Buttons(int buttonPin, ButtonID ButtonIdentifier) 
+  : pin(buttonPin), id(ButtonIdentifier) 
 {}
 
 void Buttons::begin() {
@@ -25,7 +25,7 @@ void Buttons::update(Context& context) {
 
     Event e;
     e.type = EventType::ButtonPressed;
-    e.button = ButtonID::A;
+    e.button = id;
     context.pushEvent(e);
 
     pressStart = now;
@@ -36,7 +36,7 @@ void Buttons::update(Context& context) {
 
     Event e;
     e.type = EventType::ButtonReleased;
-    e.button = ButtonID::A;
+    e.button = id;
 
     context.pushEvent(e);
   }
@@ -47,7 +47,7 @@ void Buttons::update(Context& context) {
 
       Event e;
       e.type = EventType::ButtonHeld;
-      e.button = ButtonID::A;
+      e.button = id;
 
       context.pushEvent(e);
 

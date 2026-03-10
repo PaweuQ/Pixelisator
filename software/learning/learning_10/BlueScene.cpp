@@ -63,6 +63,13 @@ void BlueScene::update() {
     if (message.startsWith("green")) {
       nextScene = greenScene;
     }
+
+  if (context.wasPressed(ButtonID::Up)) {
+    Serial.println("UP");
+  }
+  if (context.wasPressed(ButtonID::A)) {
+    Serial.println("OK");
+  }
   //}
   //Serial.println("BLUE update");
 }

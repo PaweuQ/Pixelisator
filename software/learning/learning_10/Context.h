@@ -4,7 +4,7 @@
 // licence: MIT
 
 #pragma once
-#include "Buttons.h"
+//#include "Buttons.h"
 #include "TFT_eSPI.h"
 #include "Event.h"
 
@@ -13,9 +13,9 @@
 struct Context {
 
   TFT_eSPI& tft;
-  Buttons& buttons;
+  //Buttons& buttons;
 
-  Context(Buttons& btn, TFT_eSPI& display) : buttons(btn), tft(display) {}
+  Context(TFT_eSPI& display) : tft(display) {}
 
   Event eventQueue[EVENT_QUEUE_SIZE];
   int eventCount = 0;

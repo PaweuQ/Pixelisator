@@ -11,13 +11,14 @@ struct Context; // <-- forward declaration
 
 class Buttons {
 public:
-  Buttons(int buttonPin);
+  Buttons(int buttonPin, ButtonID id);
 
   void begin();
   void update(Context& context);
 
 private:
   int pin;
+  ButtonID id;
   bool previousState = HIGH;
   bool currentState = false;
   unsigned long pressStart = 0;
