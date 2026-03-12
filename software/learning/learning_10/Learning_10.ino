@@ -3,18 +3,13 @@
 // github:  Hexyr7
 // licence: MIT
 
-// 1 BlueScene update() optimisation
-//   removed blocking Serial.readString()
-//   replaced with non-blocking char reading
+// 1 adding all buttons predicted for the project
+// 2 adding all crucial button states - pressed, held, released
+// 3 switching between all scenes are controlled by buttons now 
 
-// 2 Passing hardware objects through Context
-//   Context stores shared system objects (tft, buttons)
-//   scenes receive them through reference
-//   this removes global variables and keeps dependencies explicit
-
-// 3 Implementing events for buttons instead of polling
-//   only BlinkScene and BlueScene are working
-//   I'll work on other scenes next time
+// 4 taking important project decision - managing buttons with multiple objects
+// instead of creating InputManager to rule them all 
+// this version of buttons management keeps the code more readable, clean and easier to develop
 
 #include "Buttons.h"
 #include "BlinkScene.h"
@@ -31,7 +26,11 @@ TFT_eSPI tft = TFT_eSPI();
 Context context (tft);
 
 Buttons okButton(21, ButtonID::A);
+Buttons backButton(12, ButtonID::B);
 Buttons upButton(22, ButtonID::Up);
+Buttons downButton(33, ButtonID::Down);
+Buttons leftButton(26, ButtonID::Left);
+Buttons rightButton(25, ButtonID::Right);
 
 BlinkScene blinkScene(context);
 BlueScene blueScene(context);
@@ -44,7 +43,11 @@ SceneManager manager(&blinkScene, &blueScene, &redScene, &yellowScene, &greenSce
 void setup() {
   Serial.begin(9600);
   okButton.begin();
+  backButton.begin();
   upButton.begin();
+  downButton.begin();
+  leftButton.begin();
+  rightButton.begin();
   tft.init();
   tft.setRotation(0);
   tft.invertDisplay(false);
@@ -65,7 +68,11 @@ void setup() {
 void loop() {
   
   okButton.update(context);
+  backButton.update(context);
   upButton.update(context);
+  downButton.update(context);
+  leftButton.update(context);
+  rightButton.update(context);
   manager.update();
   context.clearEvents();
 }
