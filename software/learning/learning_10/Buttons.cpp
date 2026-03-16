@@ -17,9 +17,21 @@ void Buttons::begin() {
 
 void Buttons::update(Context& context) {
 
+  const unsigned long debounceTime = 25;
+  unsigned long lastChangeTime = 0;
+  
   currentState = digitalRead(pin);
-
   unsigned long now = millis();
+
+  // debounce 
+  if (currentState != previousState) {
+    if (now - lastChangeTime < debounceTime) {
+      previousState = currentState;
+      return;
+    }
+    lastChangeTime = now;
+  }
+
 
   if (previousState == HIGH && currentState == LOW) {
 
