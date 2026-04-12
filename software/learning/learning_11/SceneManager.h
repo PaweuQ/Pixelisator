@@ -9,8 +9,8 @@
 
 class SceneManager {
   public:
-    SceneManager(Scene* blue, Scene* red, Scene* green)
-      : blueScene(blue), redScene(red), greenScene(green) {}
+    SceneManager(Scene* blue, Scene* maze, Scene* green)
+      : blueScene(blue), mazeScene(maze), greenScene(green) {}
 
     void setScene(Scene* next);
     void update();
@@ -18,6 +18,6 @@ class SceneManager {
   private:
     Scene* current = nullptr;
     Scene* blueScene;
-    Scene* redScene;
     Scene* greenScene;
+    Scene* mazeScene;
 };

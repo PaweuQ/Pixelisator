@@ -6,19 +6,20 @@
 #pragma once 
 #include <Arduino.h>
 #include "Scene.h"
+#include "TileMap.h"
 
-class GreenScene : public Scene {
+class MazeScene : public Scene {
 public:
-
-  GreenScene(Context& ctx) : Scene(ctx) {}
+  MazeScene(Context& ctx);
 
   void setBlueScene(Scene* scene);
-  void setMazeScene(Scene* scene);
-  void onExit();
+  void setGreenScene(Scene* scene);
   void onEnter();
+  void onExit();
   void update();
 
 private:
-Scene* blueScene = nullptr;
-Scene* mazeScene = nullptr;
+  TileMap map;
+  Scene* blueScene = nullptr;
+  Scene* greenScene = nullptr;
 };

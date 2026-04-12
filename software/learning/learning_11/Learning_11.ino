@@ -13,7 +13,7 @@
 
 #include "Buttons.h"
 #include "BlueScene.h"
-#include "RedScene.h"
+#include "MazeScene.h"
 #include "GreenScene.h"
 #include "SceneManager.h"
 #include <TFT_eSPI.h>
@@ -33,10 +33,10 @@ Buttons leftButton(26, ButtonID::Left);
 Buttons rightButton(25, ButtonID::Right);
 
 BlueScene blueScene(context);
-RedScene redScene(context);
+MazeScene mazeScene(context);
 GreenScene greenScene(context);
 
-SceneManager manager(&blueScene, &redScene, &greenScene);
+SceneManager manager(&blueScene, &mazeScene, &greenScene);
 
 void setup() {
   Serial.begin(9600);
@@ -50,14 +50,14 @@ void setup() {
   tft.setRotation(0);
   tft.invertDisplay(false);
 
-  blueScene.setRedScene(&redScene);
+  blueScene.setMazeScene(&mazeScene);
   blueScene.setGreenScene(&greenScene);
 
-  redScene.setBlueScene(&blueScene);
-  redScene.setGreenScene(&greenScene);
+  mazeScene.setBlueScene(&blueScene);
+  mazeScene.setGreenScene(&greenScene);
 
   greenScene.setBlueScene(&blueScene);
-  greenScene.setRedScene(&redScene);
+  greenScene.setMazeScene(&mazeScene);
   
   manager.setScene(&blueScene);
 

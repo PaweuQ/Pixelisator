@@ -11,7 +11,7 @@ class BlueScene : public Scene {
 public:
   BlueScene(Context& ctx) : Scene(ctx) {}
   
-  void setRedScene(Scene* scene);
+  void setMazeScene(Scene* scene);
   void setGreenScene(Scene* scene);
   
   void onEnter() override;
@@ -20,7 +20,7 @@ public:
 
 private: 
   String message = ""; 
-  Scene* redScene = nullptr;
+  Scene* mazeScene = nullptr;
   Scene* greenScene = nullptr;
 };
 

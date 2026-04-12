@@ -10,8 +10,8 @@
 //extern TFT_eSPI tft;
 //extern Buttons buttons;
 
-void BlueScene::setRedScene(Scene* scene) {
-  redScene = scene;
+void BlueScene::setMazeScene(Scene* scene) {
+  mazeScene = scene;
 }
 void BlueScene::setGreenScene(Scene* scene) {
   greenScene = scene;
@@ -47,16 +47,16 @@ void BlueScene::update() {
   }
 
   if (context.wasPressed(ButtonID::Down)) {
-    Serial.println("Go to RedScene");
-    nextScene = redScene;
+    Serial.println("Go to MazeScene");
+    nextScene = mazeScene;
   }
   //if (Serial.available() > 0) {
 
   
     //Serial.println("Serial available");
-    if (message.startsWith("red")) {
-      Serial.println("red");
-      nextScene = redScene;
+    if (message.startsWith("maze")) {
+      Serial.println("maze");
+      nextScene = mazeScene;
     }
     if (message.startsWith("green")) {
       nextScene = greenScene;

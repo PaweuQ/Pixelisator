@@ -11,8 +11,8 @@
 void GreenScene::setBlueScene(Scene* scene) {
   blueScene = scene;
 }
-void GreenScene::setRedScene(Scene* scene) {
-  redScene = scene;
+void GreenScene::setMazeScene(Scene* scene) {
+  mazeScene = scene;
 }
 void GreenScene::onExit() {}
 
@@ -23,7 +23,7 @@ void GreenScene::onEnter() {
 
 void GreenScene::update() {
   if(context.wasHeld(ButtonID::B)) {
-    nextScene = redScene;
+    nextScene = mazeScene;
   }
 }
 
