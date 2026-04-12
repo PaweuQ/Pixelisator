@@ -6,7 +6,7 @@ Pixelisator is a homemade handheld game console based on ESP32 and TFT LCD.
 12.04.2026 UPDATE
 
 (a) State Machine  
-  • Scene-based architecture is implemented and working  
+    • Scene-based architecture is implemented and working  
   • SceneManager is decoupled from specific scene implementations  
   • No dynamic allocation (new) - all scenes are statically allocated  
   • Scene transitions are handled via pointers  
