@@ -14,14 +14,14 @@ Pixelisator is a homemade handheld game console based on ESP32 and TFT LCD.
     • Scenes do not access hardware directly  
 (b) Input System  
     • Input handler implemented and working  
-    • Hardware fully decoupled from scene logic via Context
-    • Stable, non-blocking debouncing implemented
-    • Event system implemented and working
-    • 3 button states introduced as events: pressed, held, released
-    • Event system with queue
-(c) Context
-    • Implemented Context which is the structure for sharing objects among scenes
-    • Context eliminates global dependencies (no extern in code)
-    • Context separates logic and hardware
-(d) Renderer
-    • Basic rendering layer (I'm still working on it)
+    • Hardware fully decoupled from scene logic via Context  
+    • Stable, non-blocking debouncing implemented  
+    • Event system implemented and working  
+    • 3 button states introduced as events: pressed, held, released  
+    • Event system with queue  
+(c) Context  
+    • Implemented Context which is the structure for sharing objects among scenes  
+    • Context eliminates global dependencies (no extern in code)  
+    • Context separates logic and hardware  
+(d) Renderer  
+    • Basic rendering layer (I'm still working on it)  
