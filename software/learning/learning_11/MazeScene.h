@@ -7,6 +7,7 @@
 #include <Arduino.h>
 #include "Scene.h"
 #include "TileMap.h"
+#include "Player.h"
 
 class MazeScene : public Scene {
 public:
@@ -19,6 +20,7 @@ public:
   void update();
 
 private:
+  Player player;
   TileMap map;
   Scene* blueScene = nullptr;
   Scene* greenScene = nullptr;

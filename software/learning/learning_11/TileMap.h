@@ -4,7 +4,7 @@
 // licence: MIT
 
 #pragma once 
-#include "context.h"
+#include "Context.h"
 
 class TileMap {
 public:
@@ -12,6 +12,7 @@ public:
 
   //nazwa do zmiany
   void draw();
+  bool isWall(int x, int y);
 
 private:
   Context& context;

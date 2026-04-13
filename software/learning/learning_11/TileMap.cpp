@@ -28,3 +28,10 @@ void TileMap::draw() {
     }
   }
 }
+
+bool TileMap::isWall(int x, int y) {
+  if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
+    return true; //player out of map
+  } 
+  return themap[x][y] == 1;
+}
