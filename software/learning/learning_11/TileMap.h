@@ -17,8 +17,8 @@ public:
 private:
   Context& context;
 
-  static const int WIDTH = 10;
-  static const int HEIGHT = 15;
+  static const int WIDTH = 15;
+  static const int HEIGHT = 10;
   static const int TILE_SIZE = 32;
 
   uint8_t themap[10][15] = {

@@ -15,7 +15,7 @@ void TileMap::draw() {
   for (int y = 0; y < HEIGHT; y++ ) {
     for (int x = 0; x < WIDTH; x++) {
 
-      int tile = themap[x][y];
+      int tile = themap[y][x];
 
       int screenX = x * TILE_SIZE;
       int screenY = y * TILE_SIZE;
@@ -33,5 +33,5 @@ bool TileMap::isWall(int x, int y) {
   if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT) {
     return true; //player out of map
   } 
-  return themap[x][y] == 1;
+  return themap[y][x] == 1;
 }
