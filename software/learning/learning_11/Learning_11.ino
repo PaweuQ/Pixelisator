@@ -47,7 +47,7 @@ void setup() {
   leftButton.begin();
   rightButton.begin();
   tft.init();
-  tft.setRotation(2);
+  tft.setRotation(1);
   tft.invertDisplay(false);
 
   blueScene.setMazeScene(&mazeScene);
