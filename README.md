@@ -28,3 +28,6 @@ Pixelisator is a homemade handheld game console based on ESP32 and TFT LCD.
 (e) Maps
 &nbsp;&nbsp;&nbsp;&nbsp;• Drawing maps on horizontally oriented LCD
 &nbsp;&nbsp;&nbsp;&nbsp;• Implemented basic cursor logic on the map 
+
+## Test circuit at 19.04.2026
+<img src="https://raw.githubusercontent.com/Hexyr7/Pixelisator/main/software/learning/Learning_11_image.jpg" width="50%" />
