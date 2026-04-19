@@ -12,6 +12,7 @@ Pixelisator is a homemade handheld game console based on ESP32 and TFT LCD.
 &nbsp;&nbsp;&nbsp;&nbsp;• Scene transitions are handled via pointers  
 &nbsp;&nbsp;&nbsp;&nbsp;• Scenes do not directily reference each other - that's SceneManager job  
 &nbsp;&nbsp;&nbsp;&nbsp;• Scenes do not access hardware directly  
+
 (b) Input System  
 &nbsp;&nbsp;&nbsp;&nbsp;• Input handler implemented and working  
 &nbsp;&nbsp;&nbsp;&nbsp;• Hardware fully decoupled from scene logic via Context  
@@ -19,12 +20,15 @@ Pixelisator is a homemade handheld game console based on ESP32 and TFT LCD.
 &nbsp;&nbsp;&nbsp;&nbsp;• Event system implemented and working  
 &nbsp;&nbsp;&nbsp;&nbsp;• 3 button states introduced as events: pressed, held, released  
 &nbsp;&nbsp;&nbsp;&nbsp;• Event system with queue  
+
 (c) Context  
 &nbsp;&nbsp;&nbsp;&nbsp;• Implemented Context which is the structure for sharing objects among scenes  
 &nbsp;&nbsp;&nbsp;&nbsp;• Context eliminates global dependencies (no extern in code)  
 &nbsp;&nbsp;&nbsp;&nbsp;• Context separates logic and hardware  
+
 (d) Renderer  
 &nbsp;&nbsp;&nbsp;&nbsp;• Basic rendering layer added
+
 (e) Map, Player, Maze
 &nbsp;&nbsp;&nbsp;&nbsp;• Fixed LCD orientation. Now it's horizontal and [0,0] point is in the left up corner
 &nbsp;&nbsp;&nbsp;&nbsp;• Maze stuctures are 2-dimension arrays drawn with double for loop
